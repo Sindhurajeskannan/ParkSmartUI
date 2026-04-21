@@ -1,0 +1,61 @@
+<app-navbar (openLogin)="openLogin()"></app-navbar>
+
+<!-- Login Modal -->
+<app-login-modal
+  *ngIf="showLogin"
+  (close)="closeModals()"
+  (switchToSignup)="openSignup()">
+</app-login-modal>
+
+<!-- Signup Modal -->
+<app-signup-modal
+  *ngIf="showSignup"
+  (close)="closeModals()"
+  (switchToLogin)="openLogin()">
+</app-signup-modal>
+
+<!-- Hero Section — NO click handler on the whole section -->
+<section class="hero" (click)="openLogin()">
+    <div class="hero-image-col">
+        <img src="assets/images/hero-car.png" alt="ParkSmart" class="hero-img" onerror="this.style.display='none'" />
+        <div class="hero-placeholder" *ngIf="false">
+            <div class="placeholder-graphic">
+                <span class="p-sign">P</span>
+                <span class="car-emoji">🚗</span>
+            </div>
+        </div>
+    </div>
+
+  <div class="hero-content">
+    <h1 class="hero-title">
+      Users Secure Your <span class="highlight">Parking</span>.<br />
+      Instant Booking.
+    </h1>
+    <p class="hero-subtitle">
+      Find nearby parking, choose your time slot, and book instantly without hassle.
+    </p>
+
+    <!-- Only Book Your Space button triggers login -->
+    <button class="btn-book" (click)="openLogin()">Book Your Space</button>
+
+    <div class="search-card">
+      <input
+        type="text"
+        placeholder="Area or landmark (e.g., Marathahalli)"
+        class="location-input"
+      />
+      <div class="time-row">
+        <div class="time-field">
+          <label>Arriving</label>
+          <input type="datetime-local" [(ngModel)]="arrivingTime" />
+        </div>
+        <div class="time-field">
+          <label>Leaving</label>
+          <input type="datetime-local" [(ngModel)]="leavingTime" />
+        </div>
+      </div>
+      <!-- Search button triggers login -->
+      <button class="btn-available" (click)="openLogin()">View All Available Spaces</button>
+    </div>
+  </div>
+</section>

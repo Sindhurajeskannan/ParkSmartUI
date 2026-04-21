@@ -1,0 +1,78 @@
+<app-navbar></app-navbar>
+
+<div class="profile-container">
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner-large"></div>
+    <p>Loading your profile...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!loading && errorMessage" class="error-state">
+    <span class="error-icon">⚠️</span>
+    <p>{{ errorMessage }}</p>
+    <button (click)="ngOnInit()">Retry</button>
+  </div>
+
+  <!-- Profile Data -->
+  <div *ngIf="!loading && profile" class="profile-card">
+
+    <div class="profile-banner">
+      <div class="avatar">{{ getInitials() }}</div>
+      <div class="profile-header-info">
+        <h1 class="profile-name">{{ profile.userName }}</h1>
+        <span class="profile-role">ParkSmart Member</span>
+      </div>
+    </div>
+
+    <div class="profile-body">
+      <h2 class="section-title">Account Details</h2>
+
+      <div class="details-grid">
+
+        <div class="detail-item">
+          <div class="detail-icon">👤</div>
+          <div class="detail-content">
+            <span class="detail-label">Username</span>
+            <span class="detail-value">{{ profile.userName }}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-icon">✉️</div>
+          <div class="detail-content">
+            <span class="detail-label">Email Address</span>
+            <span class="detail-value">{{ profile.email }}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-icon">📱</div>
+          <div class="detail-content">
+            <span class="detail-label">Phone Number</span>
+            <span class="detail-value">{{ profile.phoneNumber || 'Not provided' }}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-icon">🆔</div>
+          <div class="detail-content">
+            <span class="detail-label">User ID</span>
+            <span class="detail-value">#{{ profile.userId }}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-icon">💰</div>
+          <div class="detail-content">
+            <span class="detail-label">Wallet Balance</span>
+            <span class="detail-value">₹{{ profile.balance | number:'1.2-2' }}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

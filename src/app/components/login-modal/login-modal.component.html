@@ -1,0 +1,71 @@
+<div class="modal-overlay" (click)="onOverlayClick($event)">
+  <div class="modal-box">
+    <!-- Left: Form -->
+    <div class="modal-form-side">
+      <h2 class="modal-title">Login</h2>
+
+      <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
+
+      <div class="input-group" [class.invalid]="emailTouched && !isEmailValid()">
+        <span class="input-icon">✉</span>
+        <input
+          type="email"
+          placeholder="Email"
+          [(ngModel)]="email"
+          (blur)="emailTouched = true"
+        />
+      </div>
+      <div class="field-error" *ngIf="emailTouched && !isEmailValid()">
+        Please enter a valid email address.
+      </div>
+
+      <div class="input-group" [class.invalid]="passwordTouched && password.length < 8">
+        <span class="input-icon">🔒</span>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="Password"
+          [(ngModel)]="password"
+          (blur)="passwordTouched = true"
+          (keyup.enter)="onLogin()"
+        />
+        <span class="toggle-pw" (click)="showPassword = !showPassword">
+          {{ showPassword ? '👁' : '🙈' }}
+        </span>
+      </div>
+      <div class="field-error" *ngIf="passwordTouched && password.length > 0 && password.length < 8">
+        Password must be at least 8 characters.
+      </div>
+
+      <div class="form-row">
+        <label class="remember-me">
+          <input type="checkbox" [(ngModel)]="rememberMe" /> Remember Me
+        </label>
+        <a class="forgot-link" (click)="onForgotPassword()">Forgot Password?</a>
+      </div>
+
+      <div *ngIf="forgotSent" class="success-msg">
+        If this email is registered, a reset link has been sent.
+      </div>
+
+      <button class="btn-submit" (click)="onLogin()" [disabled]="loading">
+        <span *ngIf="!loading">Login</span>
+        <span *ngIf="loading" class="spinner"></span>
+      </button>
+
+      <p class="switch-link">
+        Don't have an account?
+        <a (click)="switchToSignup.emit()">Signup now</a>
+      </p>
+    </div>
+
+    <!-- Right: Welcome panel -->
+    <div class="modal-welcome-side">
+      <div class="road-scene">
+        <p class="welcome-text">Welcome to ParkSmart</p>
+        <div class="road">
+          <div class="car">🚗</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

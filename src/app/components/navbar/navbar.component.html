@@ -1,0 +1,63 @@
+<nav class="navbar">
+  <div class="navbar-brand">ParkSmart</div>
+
+  <!-- Desktop links -->
+  <ul class="navbar-links">
+    <li><a (click)="onNavLinkClick()">Home</a></li>
+    <li><a (click)="onNavLinkClick()">About</a></li>
+    <li><a (click)="onNavLinkClick()">Find Your Space</a></li>
+    <li><a (click)="onNavLinkClick()">Rent Your Space</a></li>
+    <li><a (click)="onNavLinkClick()">Blog</a></li>
+    <li><a (click)="onNavLinkClick()">Contact</a></li>
+  </ul>
+
+  <div class="navbar-actions">
+    <!-- Login button -->
+    <button *ngIf="!isLoggedIn" class="btn-login" (click)="openLogin.emit()">Log In</button>
+
+    <!-- User icon dropdown (logged in) -->
+    <div *ngIf="isLoggedIn" class="user-menu">
+      <button class="user-icon-btn" (click)="toggleDropdown()" [title]="username">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+          <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+        </svg>
+      </button>
+      <div class="dropdown-menu" *ngIf="dropdownOpen">
+        <div class="dropdown-header">
+          <span class="dropdown-username">{{ username }}</span>
+        </div>
+        <button class="dropdown-item" (click)="goToProfile()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+          </svg>
+          User Profile
+        </button>
+        <button class="dropdown-item logout" (click)="logout()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+            <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5-5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+          </svg>
+          Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- Hamburger button -->
+    <button class="hamburger" (click)="toggleMobileMenu()" [class.open]="mobileMenuOpen">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile dropdown menu -->
+  <div class="mobile-menu" *ngIf="mobileMenuOpen">
+    <a class="mobile-link" (click)="onNavLinkClick()">Home</a>
+    <a class="mobile-link" (click)="onNavLinkClick()">About</a>
+    <a class="mobile-link" (click)="onNavLinkClick()">Find Your Space</a>
+    <a class="mobile-link" (click)="onNavLinkClick()">Rent Your Space</a>
+    <a class="mobile-link" (click)="onNavLinkClick()">Blog</a>
+    <a class="mobile-link" (click)="onNavLinkClick()">Contact</a>
+    <div class="mobile-divider"></div>
+    <a class="mobile-link" *ngIf="!isLoggedIn" (click)="openLogin.emit(); mobileMenuOpen=false">Log In</a>
+    <a class="mobile-link" *ngIf="isLoggedIn" (click)="goToProfile(); mobileMenuOpen=false">User Profile</a>
+    <a class="mobile-link logout-link" *ngIf="isLoggedIn" (click)="logout()">Logout</a>
+  </div>
+</nav>
